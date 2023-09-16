@@ -6,6 +6,9 @@ var object = {
   carOwner: false,
 };
 
+console.log(object.name);
+console.log(object.age.toString());
+
 console.warn(`
   Afiseaza fraza “Ma numesc xxx yyy si am xx ani.”
   in consola, folosind operatorul de concatenare.
