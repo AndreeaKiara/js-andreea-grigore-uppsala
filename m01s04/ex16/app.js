@@ -53,7 +53,7 @@ Folosind forEach()
 Afiseaza in consola propozitia: “name surname are x tipuri de produse in cart.”
 `);
 cart.products.forEach(function (product) {
-  message = `${cart.name} ${cart.surname} are ${product.length} tipuri de produse in cart.`;
+  message = `${cart.name} ${cart.surname} are ${cart.products.length} tipuri de produse in cart.`;
 });
 console.log(message);
 
@@ -157,8 +157,19 @@ Defineste o variabila numita maximumBudget de tip number cu o valoare arbitrara 
 var maximumBudget = 1300;
 
 console.warn(`
-Afiseaza propozitia: “Nume prenume isi permite | nu isi permite cartul.” In functie de
+Afiseaza propozitia: “Nume prenume isi permite | nu isi permite cartul.” In functie de valoarea totala a produselor din cart.
 `);
+cartTotalPrice = 0;
+cart.products.forEach(function (product, i) {
+  var product = cart.products[i];
+  cartTotalPrice += product.price;
+  if (cartTotalPrice <= maximumBudget) {
+    message = `${cart.name} ${cart.surname} isi permite cartul.`;
+  } else {
+    message = `${cart.name} ${cart.surname} nu isi permite cartul.`;
+  }
+});
+console.log(message);
 
 console.warn(`
 Defineste o variabila numita maximumWeight de tip number cu o valoare arbitrara pozitiva.
@@ -168,3 +179,14 @@ var maximumWeight = 400;
 console.warn(`
 Afiseaza propozitia “Firma de curierat poate | nu poate livra comanda.” In functie de greutatea totala a produselor din cart.
 `);
+cartWeight = 0;
+cart.products.forEach(function (product, i) {
+  var product = cart.products[i];
+  cartWeight += product.weight * product.quantity;
+  if (cartWeight <= maximumWeight) {
+    message = `Firma de curierat poate livra comanda.`;
+  } else {
+    message = `Firma de curierat nu poate livra comanda.`;
+  }
+});
+console.log(message);
