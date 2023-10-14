@@ -77,16 +77,16 @@ for (var i = 0; i < services.length; i++) {
 console.warn(`
 Gaseste cel mai vechi serviciu si afiseaza o propozitie de forma “Folosim xxx de yyy ani.”
 `);
+let oldestService = services[0];
 
-for (var i = 1; i < services.length; i++) {
-  var service = services[i];
-  var oldestService = services[0].adoption;
-  var usedFor = 0;
+for (let i = 1; i < services.length; i++) {
+  const service = services[i];
+  const currentService = service.adoption;
 
-  if (oldestService > services[i].adoption) {
-    oldestService = services[i].adoption;
+  if (oldestService.adoption > currentService) {
+    oldestService = service;
   }
-
-  usedFor = 2023 - oldestService;
 }
-console.log(`Folosim ${service.name} de ${usedFor} ani.`);
+usedFor = 2023 - oldestService.adoption;
+
+console.log(`Folosim ${oldestService.name} de ${usedFor} ani.`);
