@@ -27,6 +27,18 @@
       }
     });
 
+    removeButtons.addEventListener('click', function () {
+      const confirmed = confirm(
+        'Esti sigur ca vrei sa stergi butoanele din DOM?',
+      );
+      if (confirmed) {
+        showButton.remove();
+        toggleEventButton.remove();
+        removeButtons.remove();
+        showMessage('Butoanele au fost eliminate');
+      }
+    });
+
     function showMessage(message) {
       let paragraphElement = document.querySelector('.message');
 
