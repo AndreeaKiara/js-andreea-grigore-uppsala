@@ -1,5 +1,5 @@
 const controls = document.querySelector('.controls');
-const box = document.querySelector('.box');
+const box = document.querySelectorAll('.box');
 const colorInput = controls.querySelector('.color-input');
 const resetButton = controls.querySelector('.reset-button');
 
