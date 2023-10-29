@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // function functions are hoisted
 function onClick() {
-  alert('butonul a fost apsat');
+  alert('butonul a fost apasat');
 }
 
 button.addEventListener('click', onClick);
