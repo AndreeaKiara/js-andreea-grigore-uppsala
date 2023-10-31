@@ -1,12 +1,5 @@
 class Vehicle {
-  constructor(
-    make,
-    color,
-    wheels,
-    speed,
-    topSpeed = 160,
-    topReverseSpeed = -50,
-  ) {
+  constructor(make, color, wheels, speed, topSpeed = 160, topReverseSpeed = 0) {
     this.make = make;
     this.color = color;
     this.speed = speed;
@@ -68,3 +61,19 @@ bike.setSpeed(2);
 bike.decelerate();
 bike.decelerate();
 bike.decelerate();
+
+class Tricycle extends Vehicle {
+  constructor(make, color, speed, topSpeed, topReverseSpeed) {
+    super(make, color, 3, speed, topSpeed, topReverseSpeed);
+  }
+}
+
+const trike = new Tricycle('Tryke', 'red', 2, 9, -2);
+
+trike.setSpeed(0);
+
+trike.decelerate();
+trike.decelerate();
+trike.decelerate();
+
+trike.setSpeed(-10);

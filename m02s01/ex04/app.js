@@ -8,10 +8,20 @@
 // left: 100; top: 200; background: purple;
 
 class Car {
-  constructor(left = 10, top = 10, color = 'black') {
+  constructor(
+    left = 10,
+    top = 10,
+    color = 'black',
+    wheelColor = 'black',
+    wheelCapColor = 'white',
+  ) {
     this.positionX = left;
     this.positionY = top;
     this.color = color;
+    this.wheelColor = wheelColor;
+    this.wheelCapColor = wheelCapColor;
+    this.areHazardsOn = false;
+    this.hazardInterval = null;
 
     this.frame = this.e('div');
     this.frame.classList.add('frame');
@@ -43,6 +53,7 @@ class Car {
     this.wheelFront = this.e('div');
     this.wheelFront.classList.add('wheel', 'car__wheel', 'car__wheel--front');
     this.carBody.append(this.wheelFront);
+
     this.hubCapFront = this.e('div');
     this.hubCapFront.classList.add('wheel__cap');
     this.wheelFront.append(this.hubCapFront);
@@ -73,6 +84,41 @@ class Car {
     return this;
   }
 
+  engageBreak() {
+    this.lightBack.classList.add('light--back');
+  }
+
+  disengageBreak() {
+    this.lightBack.classList.remove('light--back');
+  }
+
+  toggleHazards() {
+    if (this.areHazardsOn) {
+      this.disengageBreak();
+      this.areHazardsOn = false;
+    } else {
+      this.engageBreak();
+      this.areHazardsOn = true;
+
+      this.hazardInterval = setInterval(() => {
+        if (this.areHazardsOn) {
+          this.disengageBreak();
+        } else {
+          this.engageBreak();
+        }
+        this.areHazardsOn = !this.areHazardsOn;
+      }, 500);
+    }
+  }
+
+  stopHazards() {
+    if (this.hazardInterval) {
+      clearInterval(this.hazardInterval);
+      this.hazardInterval = null;
+    }
+    this.areHazardsOn = false;
+  }
+
   move(left, top) {
     const positionX = Number(left);
     const positionY = Number(top);
@@ -88,11 +134,26 @@ class Car {
 
   render() {
     // only touch the DOM at the last moment
+
+    this.wheels = this.frame.querySelectorAll('.car__wheel');
+    this.wheels.forEach((wheel) => {
+      wheel.style.backgroundColor = this.wheelColor;
+    });
+
+    this.wheels = this.frame.querySelectorAll('.wheel__cap');
+    this.wheels.forEach((cap) => {
+      cap.style.backgroundColor = this.wheelCapColor;
+    });
     document.body.append(this.frame);
 
     return this;
   }
 }
 
-const purpleCar = new Car(200, 300, 'purple').render();
+const purpleCar = new Car(200, 300, 'purple', 'blue', 'white').render();
 // new Date().getFullYear();
+
+purpleCar.toggleHazards();
+setTimeout(() => {
+  purpleCar.stopHazards();
+}, 5000);
